@@ -1,0 +1,189 @@
+board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+winner = ""
+from random import randrange
+
+def display_board(board):
+    
+    print(" +-------+-------+-------+\n",
+           "|       " * 4, "\n",
+           "|  ", board[0][0], "  |  ", board[0][1], "  |  ", board[0][2], "  |\n",
+           "|       " * 4, "\n",
+           "+-------+-------+-------+\n",
+           "|       " * 4, "\n",
+           "|  ", board[1][0], "  |  ", board[1][1], "  |  ", board[1][2], "  |\n",
+           "|       " * 4, "\n",
+           "+-------+-------+-------+\n",
+           "|       " * 4, "\n",
+           "|  ", board[2][0], "  |  ", board[2][1], "  |  ", board[2][2], "  |\n",
+           "|       " * 4, "\n",
+           "+-------+-------+-------+")
+
+def user_turn():
+    global board
+    free = False
+    
+    while free == False:
+        
+        try:
+        
+            user_move = int(input("Pick a square: "))
+    
+            if user_move == 1 or user_move == 2 or user_move == 3:
+                if is_square_free(user_move) == True:
+                    board[0][user_move - 1] = "O"
+                    free = True
+                    
+            elif user_move == 4 or user_move == 5 or user_move == 6:
+                if is_square_free(user_move) == True:
+                    board[1][user_move - 4] = "O"
+                    free = True
+                    
+            elif user_move == 7 or 8 or 9:
+                if is_square_free(user_move) == True:
+                    board[2][user_move - 7] = "O"
+                    free = True
+            
+            else:
+                continue
+            
+        except ValueError:
+            print("Invalid input.")
+        
+        
+    return display_board(board)
+    
+def pc_turn():
+    global board
+    free = False
+    
+    while free == False:
+    
+        pc_move = randrange(1,10)
+        
+        if pc_move == 1 or pc_move == 2 or pc_move == 3:
+            if is_square_free(pc_move) == True:
+                board[0][pc_move - 1] = "X"
+                free = True
+            
+        elif pc_move == 4 or pc_move == 5 or pc_move == 6:
+            if is_square_free(pc_move) == True:
+                board[1][pc_move - 4] = "X"
+                free = True
+                
+        elif pc_move == 7 or pc_move == 8 or pc_move == 9:
+            if is_square_free(pc_move) == True:
+                board[2][pc_move - 7] = "X"
+                free = True
+        
+        else:
+            continue
+        
+    return display_board(board)
+    
+def is_square_free(square):
+    
+    free_square = False
+    global board
+    
+    while free_square == False:
+        if square == 1 or square == 2 or square == 3:
+            if board[0][square - 1] == "X" or board[0][square - 1] == "O":
+                print("The square is already taken. Choose again.")
+                break
+            else:
+                free_square = True
+                
+        elif square == 4 or square == 5 or square == 6:
+            if board[1][square - 4] == "X" or board[1][square - 4] == "O":
+                print("The square is already taken. Choose again.")
+                break
+            else:
+                free_square = True
+                
+        elif square == 7 or square == 8 or square == 9:
+            if board[2][square - 7] == "X" or board[2][square - 7] == "O":
+                print("The square is already taken. Choose again.")
+                break
+            else:
+                free_square = True
+                
+        else:
+            print("Invalid choice. Try again.")
+            break
+        
+    if free_square == True:
+        return True
+        
+def is_game_over(board):
+    global winner
+    
+    if board[0][0] == "O" and board[0][1] == "O" and board[0][2] == "O":
+        winner = "User"
+        return True
+    elif board[0][0] == "X" and board[0][1] == "X" and board[0][2] == "X":
+        winner = "PC"
+        return True
+    
+    elif board[1][0] == "O" and board[1][1] == "O" and board[1][2] == "O":
+        winner = "User"
+        return True
+    elif board[1][0] == "X" and board[1][1] == "X" and board[1][2] == "X":
+        winner = "PC"
+        return True
+        
+    elif board[2][0] == "O" and board[2][1] == "O" and board[2][2] == "O":
+        winner = "User"
+        return True
+    elif board[2][0] == "X" and board[2][1] == "X" and board[2][2] == "X":
+        winner = "PC"
+        return True
+        
+    elif board[0][0] == "O" and board[1][0] == "O" and board[2][0] == "O":
+        winner = "User"
+        return True
+    elif board[0][0] == "X" and board[1][0] == "X" and board[2][0] == "X":
+        winner = "PC"
+        return True
+        
+    elif board[0][1] == "O" and board[1][1] == "O" and board[2][1] == "O":
+        winner = "User"
+        return True
+    elif board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X":
+        winner = "PC"
+        return True
+        
+    elif board[0][2] == "O" and board[1][2] == "O" and board[2][2] == "O":
+        winner = "User"
+        return True
+    elif board[0][2] == "X" and board[1][2] == "X" and board[2][2] == "X":
+        winner = "PC"
+        return True
+        
+    elif board[0][0] == "O" and board[1][1] == "O" and board[2][2] == "O":
+        winner = "User"
+        return True
+    elif board[0][0] == "X" and board[1][1] == "X" and board[2][2] == "X":
+        winner = "PC"
+        return True
+        
+    elif board[0][2] == "O" and board[1][1] == "O" and board[2][0] == "O":
+        winner == "User"
+        return True
+    elif board[0][2] == "X" and board[1][1] == "X" and board[2][0] == "X":
+        winner == "PC"
+        return True
+        
+    else:
+        return False
+    
+while is_game_over(board) != True:
+    
+    pc_turn()
+    user_turn()
+    
+    if is_game_over(board) == True:
+        print("Game over! The winner is ", winner)
+    else:
+        continue
+    
+    
