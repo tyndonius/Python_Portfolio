@@ -1,0 +1,1 @@
+This repository serves as a portfolio for my Python projects throughout my learning. I'm new to the tech world and actively learning Python. Right now, I'm self learning through the netacad.com site. 
